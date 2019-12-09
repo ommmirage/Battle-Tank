@@ -11,9 +11,19 @@ void ATankAIController::BeginPlay()
 		UE_LOG(LogTemp, Warning, TEXT("AIController is not possedding a tank"))
 	else
 		UE_LOG(LogTemp, Warning, TEXT("AI is possessing %s"), *GetControlledTank()->GetName())
+
+	if (!GetPlayerTank())
+		UE_LOG(LogTemp, Warning, TEXT("AIController can't get a PlayerTank"))
+	else
+		UE_LOG(LogTemp, Warning, TEXT("AIController found a PlayerTank %s"), *GetPlayerTank()->GetName())
 }
 
 ATank* ATankAIController::GetControlledTank()
 {
 	return Cast<ATank>(GetPawn());
+}
+
+ATank* ATankAIController::GetPlayerTank()
+{
+	return Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
 }
