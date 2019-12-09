@@ -18,12 +18,12 @@ void ATankAIController::BeginPlay()
 		UE_LOG(LogTemp, Warning, TEXT("AIController found a PlayerTank %s"), *GetPlayerTank()->GetName())
 }
 
-ATank* ATankAIController::GetControlledTank()
+ATank* ATankAIController::GetControlledTank() const
 {
 	return Cast<ATank>(GetPawn());
 }
 
-ATank* ATankAIController::GetPlayerTank()
+ATank* ATankAIController::GetPlayerTank() const
 {
 	return Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
 }

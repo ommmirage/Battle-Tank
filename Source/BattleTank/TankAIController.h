@@ -19,7 +19,7 @@ public:
 	void BeginPlay() override;
 
 private:
-	ATank* GetControlledTank();
-	ATank* GetPlayerTank();
+	ATank* GetControlledTank() const;
+	ATank* GetPlayerTank() const;
 
 };
