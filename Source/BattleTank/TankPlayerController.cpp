@@ -49,17 +49,19 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector &OutHitLocation)
 	FCollisionQueryParams CollisionParams;
 	FHitResult HitResult;
 
-	GetWorld()->LineTraceSingleByChannel(
+	if (GetWorld()->LineTraceSingleByChannel(
 		OUT HitResult,
 		GetSightRayStart(),
 		GetSightRayEnd(),
-		ECollisionChannel::ECC_PhysicsBody,
-		CollisionParams
-	);
-	
-	OutHitLocation=HitResult.Location;
-
-	return (!OutHitLocation.IsNearlyZero());
+		ECollisionChannel::ECC_Visibility,
+		CollisionParams)
+		)
+	{
+		OutHitLocation = HitResult.Location;
+		return true;
+	}
+	OutHitLocation = FVector(0);
+	return false;
 }
 
 FVector ATankPlayerController::GetSightRayStart()
