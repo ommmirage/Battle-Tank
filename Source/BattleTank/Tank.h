@@ -23,12 +23,14 @@ private:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UPROPERTY(EditAnywhere, Category="Firing")
+		float LaunchSpeed = 10000.f; // TODO find sensible default
+
 public:
+	UTankAimingComponent* TankAimingComponent = nullptr;
+
 	void AimAt(FVector HitLocation);
 
 	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetBarrelReference(UStaticMeshComponent* BarrelToSet);
-
-protected:
-	UTankAimingComponent* TankAimingComponent = nullptr;
+		void SetBarrelReference(UStaticMeshComponent* BarrelToSet);
 };

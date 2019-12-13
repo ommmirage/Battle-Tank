@@ -48,7 +48,7 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector &OutHitLocation)
 
 	if (GetWorld()->LineTraceSingleByChannel(
 		OUT HitResult,
-		GetSightRayStart(),
+		GetControlledTank()->TankAimingComponent->Barrel->GetSocketLocation("BarrelEnd"),
 		GetSightRayEnd(),
 		ECollisionChannel::ECC_Visibility,
 		CollisionParams)
@@ -59,17 +59,6 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector &OutHitLocation)
 	}
 	OutHitLocation = FVector(0);
 	return false;
-}
-
-FVector ATankPlayerController::GetSightRayStart()
-{
-	TArray<UStaticMeshComponent*> StaticMeshComponents;
-
-	GetControlledTank()->GetComponents<UStaticMeshComponent>(OUT StaticMeshComponents);
-
-	UStaticMeshComponent* Barrel = StaticMeshComponents[2];
-	FVector BarrelEndRalativeLocation = Barrel->GetSocketByName("BarrelEnd")->RelativeLocation;
-	return (Barrel->GetComponentLocation()+ BarrelEndRalativeLocation);
 }
 
 FVector ATankPlayerController::GetSightRayEnd()
