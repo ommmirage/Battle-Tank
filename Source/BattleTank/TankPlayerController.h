@@ -20,6 +20,13 @@ public:
 
 private:
 	float ShotingDistance = 50000.f;
+
+	UPROPERTY(EditAnywhere)
+		float CrosshairXLocation = 0.5f;
+
+	UPROPERTY(EditAnywhere)
+		float CrosshairYLocation = 0.5f;
+
 	ATank* GetControlledTank() const;
 
 	virtual void Tick(float DeltaTime) override;

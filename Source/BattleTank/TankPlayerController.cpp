@@ -36,6 +36,7 @@ void ATankPlayerController::AimTowardsCrosshair()
 
 	if (GetSightRayHitLocation(OutHitLocation)) // Has "side-effect", is going to set OutHitLocation
 	{
+		UE_LOG(LogTemp, Warning, TEXT("Look direction: %s"), *OutHitLocation.ToString());
 		GetControlledTank()->AimAt(OutHitLocation);
 	}
 	
@@ -43,6 +44,19 @@ void ATankPlayerController::AimTowardsCrosshair()
 
 bool ATankPlayerController::GetSightRayHitLocation(FVector &OutHitLocation)
 {
+	// Find the crosshair position
+	int32 ViewportSizeX, ViewPortSeizeY;
+	GetViewportSize(ViewportSizeX, ViewPortSeizeY);
+
+	float CrosshairXLocation = 0.5f;
+	float CrosshairYLocation = 0.5f;
+
+
+	// "De-project" the screen position of the crosshair to a world direction
+	// Line-trace along that look direction, and see what we hit (up to max range)
+
+
+
 	FCollisionQueryParams CollisionParams;
 	FHitResult HitResult;
 
