@@ -62,5 +62,10 @@ DerivedDataCache/*
 # Starter Content
 Content/StarterContent
 
+# Allow
+!Content/StarterContent/Textures/T_Ground_Gravel_D.T_Ground_Grass_D.uasset
+!Content/StarterContent/Textures/T_Ground_Gravel_D.T_Ground_Gravel_D.uasset
+
+
 # Visual Studio
 .vs/
