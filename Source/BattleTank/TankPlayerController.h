@@ -20,6 +20,7 @@ public:
 
 private:
 	float ShotingDistance = 50000.f;
+	float LineTraceRange = 1000000.f;
 
 	UPROPERTY(EditAnywhere)
 		float CrosshairXLocation = 0.5f;
@@ -34,10 +35,9 @@ private:
 	// Moves a barrel to a crosshair (прицел)
 	void AimTowardsCrosshair();
 
+	bool GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection);
+	bool GetLookVectorHitLocation(FVector& OutHitLocation, FVector LookDirection);
 	// Return an OUT parameter, true if hit landscape
 	bool GetSightRayHitLocation(FVector& OutHitLocation);
-
-	FVector GetSightRayStart();
 	
-	FVector GetSightRayEnd();
 };

@@ -36,7 +36,7 @@ void ATankPlayerController::AimTowardsCrosshair()
 
 	if (GetSightRayHitLocation(OutHitLocation)) // Has "side-effect", is going to set OutHitLocation
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Look direction: %s"), *OutHitLocation.ToString());
+		UE_LOG(LogTemp, Warning, TEXT("HitLocation: %s"), *OutHitLocation.ToString());
 		GetControlledTank()->AimAt(OutHitLocation);
 	}
 	
@@ -49,38 +49,51 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector &OutHitLocation)
 	GetViewportSize(ViewportSizeX, ViewPortSeizeY);
 
 	auto ScreenLocation = FVector2D(ViewportSizeX * CrosshairXLocation, ViewPortSeizeY * CrosshairYLocation);
-	UE_LOG(LogTemp, Warning, TEXT("%s"), *ScreenLocation.ToString());
+
 	// "De-project" the screen position of the crosshair to a world direction
-	// Line-trace along that look direction, and see what we hit (up to max range)
+	FVector LookDirection;
+	if (GetLookDirection(ScreenLocation, LookDirection))
+	{
+		// Line-trace along that look direction, and see what we hit (up to max range)
+		if (GetLookVectorHitLocation(OutHitLocation, LookDirection))
+		{
+			return true;
+		}
+	}
+	return false;
+}
 
+bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection)
+{
+	FVector WorldLocation; // To be discarded
+	return DeprojectScreenPositionToWorld
+	(
+		ScreenLocation.X,
+		ScreenLocation.Y,
+		WorldLocation,
+		LookDirection
+	);
+}
 
-
+bool ATankPlayerController::GetLookVectorHitLocation(FVector& OutHitLocation, FVector LookDirection)
+{
 	FCollisionQueryParams CollisionParams;
 	FHitResult HitResult;
+	FVector StartLocation = GetControlledTank()->TankAimingComponent->Barrel->GetSocketLocation("BarrelEnd");
+	FVector EndLocation = StartLocation + LookDirection * LineTraceRange;
 
-	if (GetWorld()->LineTraceSingleByChannel(
-		OUT HitResult,
-		GetControlledTank()->TankAimingComponent->Barrel->GetSocketLocation("BarrelEnd"),
-		GetSightRayEnd(),
+	if (GetWorld()->LineTraceSingleByChannel
+	(
+		HitResult,
+		StartLocation,
+		EndLocation,
 		ECollisionChannel::ECC_Visibility,
-		CollisionParams)
-		)
+		CollisionParams
+	))
 	{
 		OutHitLocation = HitResult.Location;
 		return true;
 	}
 	OutHitLocation = FVector(0);
 	return false;
-}
-
-FVector ATankPlayerController::GetSightRayEnd()
-{
-	FVector PlayerViewPointLocation;
-	FRotator PlayerViewPointRotation;
-	GetPlayerViewPoint(
-		OUT PlayerViewPointLocation,
-		OUT PlayerViewPointRotation
-	);
-
-	return PlayerViewPointLocation + PlayerViewPointRotation.Vector() * ShotingDistance;
 }
