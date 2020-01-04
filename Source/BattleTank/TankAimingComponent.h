@@ -20,7 +20,11 @@ public:
 
 	void SetBarrelReference(UStaticMeshComponent* BarrelToSet);
 
+	void SetHitLocationIndicatorReference(UStaticMeshComponent* HitLocationIndicatorReference);
+
 	UStaticMeshComponent* Barrel = nullptr;
+
+	UStaticMeshComponent* HitLocationIndicator = nullptr;
 
 	void MoveBarrelTowards(FVector AimDirection);
 	

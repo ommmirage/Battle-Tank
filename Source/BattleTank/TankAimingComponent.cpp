@@ -11,12 +11,16 @@ UTankAimingComponent::UTankAimingComponent()
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
 
-	// ...
 }
 
 void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent* BarrelToSet)
 {
 	Barrel = BarrelToSet;
+}
+
+void UTankAimingComponent::SetHitLocationIndicatorReference(UStaticMeshComponent* HitLocationIndicatorReference)
+{
+	HitLocationIndicator = HitLocationIndicatorReference;
 }
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
@@ -25,9 +29,10 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 
 	FVector OutLaunchVelocity(0);
 	FVector StartLocation = Barrel->GetSocketLocation(FName("BarrelEnd"));
+
 	UE_LOG(LogTemp, Warning, TEXT("HitLocation: %s"), *HitLocation.ToString());
 
-	// TODO ѕоместить шарик на карту и перемещать его в HitLocation
+	HitLocationIndicator->SetWorldLocation(HitLocation);
 
 	bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity
 	(
