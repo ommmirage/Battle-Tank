@@ -35,9 +35,9 @@ private:
 	// Moves a barrel to a crosshair (прицел)
 	void AimTowardsCrosshair();
 
-	bool GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection);
-	bool GetLookVectorHitLocation(FVector& OutHitLocation, FVector LookDirection);
+	bool GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const;
+	bool GetLookVectorHitLocation(FVector& OutHitLocation, FVector LookDirection) const;
 	// Return an OUT parameter, true if hit landscape
-	bool GetSightRayHitLocation(FVector& OutHitLocation);
+	bool GetSightRayHitLocation(FVector& OutHitLocation) const;
 	
 };
