@@ -49,6 +49,10 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		FVector AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
 	}	
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No aim solution found"));
+	}
 }
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
@@ -58,24 +62,8 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	FRotator AimDirectionRotator = AimDirection.Rotation();
 	FRotator DeltaRotator(0);
 	DeltaRotator.Pitch = AimDirectionRotator.Pitch - BarrelRotator.Pitch;
-
-	//UE_LOG(LogTemp, Warning, TEXT("Aim Direction Rotator: %s"), *AimDirectionRotator.ToString());
-	//UE_LOG(LogTemp, Warning, TEXT("Barrel Rotator: %s"), *BarrelRotator.ToString());
-	//UE_LOG(LogTemp, Warning, TEXT("DeltaRotator: %s"), *DeltaRotator.ToString());
 	
-	// Move the barrel the right amount this frame
-	// Given a max elevation speed, and the frame time
-		//FRotator BarrelRotation = 
-
-	//if ((Barrel->RelativeRotation.Pitch + DeltaRotator.Pitch) > maxPitch)
-	//	Barrel->SetRelativeRotation(FRotator(maxPitch, 0, 0));
-	//else if ((Barrel->RelativeRotation.Pitch + DeltaRotator.Pitch) < minPitch)
-	//	Barrel->SetRelativeRotation(FRotator(minPitch, 0, 0));
-	//else
-		Barrel->AddRelativeRotation(DeltaRotator);
-
-	UE_LOG(LogTemp, Warning, TEXT("Barrel Relative Rotator: %s"), *Barrel->GetRelativeRotation().ToString());
-
+	Barrel->Elevate(DeltaRotator);
 }
 
 
