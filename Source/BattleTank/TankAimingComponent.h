@@ -6,8 +6,10 @@
 #include "Components/ActorComponent.h"
 #include "TankAimingComponent.generated.h"
 
-class UTankBarrel; // Forward declaration
+// Forward declaration
+class UTankBarrel;
 
+// Holds barrel's properties and Elevate method
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BATTLETANK_API UTankAimingComponent : public UActorComponent
 {
@@ -27,8 +29,6 @@ public:
 
 private:
 	UTankBarrel* Barrel = nullptr;
-	float maxPitch = 10.f;
-	float minPitch = -10.f;
 	
 	void MoveBarrelTowards(FVector AimDirection);
 };

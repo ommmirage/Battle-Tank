@@ -67,11 +67,11 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	// Given a max elevation speed, and the frame time
 		//FRotator BarrelRotation = 
 
-	if ((Barrel->RelativeRotation.Pitch + DeltaRotator.Pitch) > maxPitch)
-		Barrel->SetRelativeRotation(FRotator(maxPitch, 0, 0));
-	else if ((Barrel->RelativeRotation.Pitch + DeltaRotator.Pitch) < minPitch)
-		Barrel->SetRelativeRotation(FRotator(minPitch, 0, 0));
-	else
+	//if ((Barrel->RelativeRotation.Pitch + DeltaRotator.Pitch) > maxPitch)
+	//	Barrel->SetRelativeRotation(FRotator(maxPitch, 0, 0));
+	//else if ((Barrel->RelativeRotation.Pitch + DeltaRotator.Pitch) < minPitch)
+	//	Barrel->SetRelativeRotation(FRotator(minPitch, 0, 0));
+	//else
 		Barrel->AddRelativeRotation(DeltaRotator);
 
 	UE_LOG(LogTemp, Warning, TEXT("Barrel Relative Rotator: %s"), *Barrel->GetRelativeRotation().ToString());
