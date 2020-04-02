@@ -3,6 +3,7 @@
 #include "BattleTank.h"
 #include "TankAimingComponent.h"
 #include "TankBarrel.h"
+#include "TankTurret.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values for this component's properties
@@ -19,10 +20,15 @@ void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
 	Barrel = BarrelToSet;
 }
 
-void UTankAimingComponent::SetHitLocationIndicatorReference(UStaticMeshComponent* HitLocationIndicatorReference)
+void UTankAimingComponent::SetTurretReference(UTankTurret* TurretToSet)
 {
-	HitLocationIndicator = HitLocationIndicatorReference;
+	Turret = TurretToSet;
 }
+
+//void UTankAimingComponent::SetHitLocationIndicatorReference(UStaticMeshComponent* HitLocationIndicatorReference)
+//{
+//	HitLocationIndicator = HitLocationIndicatorReference;
+//}
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 {

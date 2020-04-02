@@ -36,7 +36,12 @@ void ATank::SetBarrelReference(UTankBarrel* BarrelToSet)
 	TankAimingComponent->SetBarrelReference(BarrelToSet);
 }
 
-void ATank::SetHitLocationIndicatorReference(UStaticMeshComponent* HitLocationIndicatorReference)
+void ATank::SetTurretReference(UTankTurret* TurretToSet)
 {
-	TankAimingComponent->SetHitLocationIndicatorReference(HitLocationIndicatorReference);
+	TankAimingComponent->SetTurretReference(TurretToSet);
 }
+
+//void ATank::SetHitLocationIndicatorReference(UStaticMeshComponent* HitLocationIndicatorReference)
+//{
+//	TankAimingComponent->SetHitLocationIndicatorReference(HitLocationIndicatorReference);
+//}
