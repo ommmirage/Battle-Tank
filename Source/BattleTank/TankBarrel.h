@@ -15,7 +15,7 @@ class BATTLETANK_API UTankBarrel : public UStaticMeshComponent
 	GENERATED_BODY()
 
 public:
-	void Elevate(float RelativeSpeed);
+	void Elevate(float DeltaPitch);
 
 private:
 	UPROPERTY(EditAnywhere, Category = Setup)
