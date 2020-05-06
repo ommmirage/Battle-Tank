@@ -7,15 +7,31 @@
 void UTankBarrel::Elevate(float DeltaPitch)
 {
 	float ElevationChange = 0;
+	float DegreesPerSecond = MaxDegreesPerSecond;
 	if (DeltaPitch > 0)
-	{
-		ElevationChange = MaxDegreesPerSecond * GetWorld()->DeltaTimeSeconds;
-		ElevationChange = FMath::Clamp(ElevationChange, -DeltaPitch, DeltaPitch);
+	{	
+		// Lower barrel speed when elevating the last degree
+		if (DeltaPitch < 1)
+		{
+			DegreesPerSecond = MaxDegreesPerSecond / 2;
+		}
+		ElevationChange = DegreesPerSecond * GetWorld()->DeltaTimeSeconds;
+		if (ElevationChange > DeltaPitch)
+		{
+			ElevationChange = DeltaPitch;
+		}
 	}
 	else if (DeltaPitch < 0)
 	{
-		ElevationChange = -MaxDegreesPerSecond * GetWorld()->DeltaTimeSeconds;
-		ElevationChange = FMath::Clamp(ElevationChange, DeltaPitch, -DeltaPitch);
+		if (DeltaPitch > -1)
+		{
+			DegreesPerSecond = MaxDegreesPerSecond / 2;
+		}
+		ElevationChange = -DegreesPerSecond * GetWorld()->DeltaTimeSeconds;
+		if (ElevationChange < DeltaPitch)
+		{
+			ElevationChange = DeltaPitch;
+		}
 	}
 	
 	float RawRelativeElevation = GetRelativeRotation().Pitch + ElevationChange;
