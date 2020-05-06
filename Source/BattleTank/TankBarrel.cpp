@@ -4,15 +4,26 @@
 #include "GameFramework/Actor.h"
 #include "TankBarrel.h"
 
-void UTankBarrel::Elevate(float RelativeSpeed)
+void UTankBarrel::Elevate(float DeltaPitch)
 {
 	// Move the barrel the right amount this frame
 	// Given a max elevation speed, and the frame time
 
-	//UE_LOG(LogTemp, Warning, TEXT("DeltaRotator.Pitch: %f"), RelativeSpeed);
-	RelativeSpeed = FMath::Clamp<float>(RelativeSpeed, -1, 1);
-	float ElevationChange = RelativeSpeed * MaxDegreesPerSecond * GetWorld()->DeltaTimeSeconds;
+	float ElevationChange = 0;
+	if (DeltaPitch > 0)
+	{
+		ElevationChange = MaxDegreesPerSecond * GetWorld()->DeltaTimeSeconds;
+	}
+	else if (DeltaPitch < 0)
+	{
+		ElevationChange = -MaxDegreesPerSecond * GetWorld()->DeltaTimeSeconds;
+	}
+	ElevationChange = FMath::Clamp(ElevationChange, -DeltaPitch, DeltaPitch);
 	float RawRelativeElevation = GetRelativeRotation().Pitch + ElevationChange;
 	float RelativeElevation = FMath::Clamp(RawRelativeElevation, MinElevationDegrees, MaxElevationDegrees);
 	SetRelativeRotation(FRotator(RelativeElevation,0,0));
+
+
+	UE_LOG(LogTemp, Warning, TEXT("%f"), GetWorld()->GetTimeSeconds());
+	UE_LOG(LogTemp, Warning, TEXT("RelativeElevation: %f"), RelativeElevation);
 }
