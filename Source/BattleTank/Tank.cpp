@@ -35,6 +35,7 @@ void ATank::AimAt(FVector HitLocation)
 
 void ATank::Fire()
 {
+	// if Reloaded
 	if (GetWorld()->GetTimeSeconds() - LastShotTime > ReloadTimeInSeconds)
 	{
 		FVector ProjectileLocation = Barrel->GetSocketLocation("BarrelEnd");

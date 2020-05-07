@@ -20,10 +20,10 @@ private:
 	float ShotingDistance = 50000.f;
 	float LineTraceRange = 1000000.f;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 		float CrosshairXLocation = 0.5f;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 		float CrosshairYLocation = 0.5f;
 
 	ATank* GetControlledTank() const;
