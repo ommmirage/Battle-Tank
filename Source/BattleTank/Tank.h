@@ -29,7 +29,7 @@ private:
 		TSubclassOf<AProjectile> ProjectileBP;
 
 	UPROPERTY(EditDefaultsOnly, Category= "Firing")
-		float LaunchSpeed = 10000.f;
+		float LaunchSpeed = 30000.f;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 		float ReloadTimeInSeconds = 3;
