@@ -35,14 +35,18 @@ void ATank::AimAt(FVector HitLocation)
 
 void ATank::Fire()
 {
-	FVector ProjectileLocation = Barrel->GetSocketLocation("BarrelEnd");
-	FRotator ProjectileRotation = Barrel->GetSocketRotation("BarrelEnd");
-	auto Projectile = GetWorld()->SpawnActor<AProjectile>(
-		ProjectileBP, 
-		ProjectileLocation, 
-		ProjectileRotation
-	);
-	Projectile->Launch(LaunchSpeed);
+	if (GetWorld()->GetTimeSeconds() - LastShotTime > ReloadTimeInSeconds)
+	{
+		FVector ProjectileLocation = Barrel->GetSocketLocation("BarrelEnd");
+		FRotator ProjectileRotation = Barrel->GetSocketRotation("BarrelEnd");
+		auto Projectile = GetWorld()->SpawnActor<AProjectile>(
+			ProjectileBP,
+			ProjectileLocation,
+			ProjectileRotation
+			);
+		Projectile->Launch(LaunchSpeed);
+		LastShotTime = GetWorld()->GetTimeSeconds();
+	}
 }
 
 void ATank::SetBarrelReference(UTankBarrel* BarrelToSet)

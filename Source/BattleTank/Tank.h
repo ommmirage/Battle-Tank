@@ -34,6 +34,10 @@ private:
 	// Local barrel reference to spawn projectile
 	UTankBarrel* Barrel = nullptr;
 
+	float ReloadTimeInSeconds = 3;
+
+	float LastShotTime = 0;
+
 public:
 	UTankAimingComponent* TankAimingComponent = nullptr;
 
@@ -47,6 +51,5 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 		void Fire();
-
 
 };
