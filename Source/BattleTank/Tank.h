@@ -39,6 +39,8 @@ private:
 
 	float LastShotTime = 0;
 
+	void MoveForward();
+
 public:
 	UTankAimingComponent* TankAimingComponent = nullptr;
 
