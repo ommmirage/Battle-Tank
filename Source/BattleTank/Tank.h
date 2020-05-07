@@ -37,9 +37,6 @@ private:
 public:
 	UTankAimingComponent* TankAimingComponent = nullptr;
 
-	//UFUNCTION(BlueprintCallable, Category = Setup)
-	//	void SetHitLocationIndicatorReference(UStaticMeshComponent* HitLocationIndicatorReference);
-
 	UFUNCTION(BlueprintCallable, Category = Setup)
 		void SetBarrelReference(UTankBarrel* BarrelToSet);
 

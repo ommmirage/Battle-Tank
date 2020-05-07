@@ -35,10 +35,14 @@ void ATank::AimAt(FVector HitLocation)
 
 void ATank::Fire()
 {
-	UE_LOG(LogTemp, Warning, TEXT("%f: Tank fires"), GetWorld()->GetTimeSeconds());
 	FVector ProjectileLocation = Barrel->GetSocketLocation("BarrelEnd");
 	FRotator ProjectileRotation = Barrel->GetSocketRotation("BarrelEnd");
-	GetWorld()->SpawnActor<AProjectile>(ProjectileBP, ProjectileLocation, ProjectileRotation);
+	auto Projectile = GetWorld()->SpawnActor<AProjectile>(
+		ProjectileBP, 
+		ProjectileLocation, 
+		ProjectileRotation
+	);
+	Projectile->Launch(LaunchSpeed);
 }
 
 void ATank::SetBarrelReference(UTankBarrel* BarrelToSet)
